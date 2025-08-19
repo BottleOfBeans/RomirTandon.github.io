@@ -66,7 +66,7 @@
     border:1px solid var(--border); box-shadow: 0 20px 50px var(--shadow);
   }
   .hero-text h1{font-size: clamp(2.2rem, 2.5vw + 1.5rem, 3.4rem); margin:0; letter-spacing:.3px}
-  .accent{border-bottom:2px solid #fff}
+  .accent{border-bottom:2px solid #861919}
   .tagline{color:var(--muted); font-size:1.1rem; margin:.8rem 0 1.6rem}
   .cta{display:flex; gap:.8rem; flex-wrap:wrap}
   .btn{
