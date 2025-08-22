@@ -1,419 +1,204 @@
-<!DOCTYPE html>
-
-<html data-theme="dark" lang="en">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="dark" name="color-scheme"/>
-<title>Romir Tandon • Physics Based Programming</title>
-<meta content="Romir Tandon — physics-based programming, simulations, and full‑stack engineering." name="description"/>
-<meta content="Romir Tandon" name="author"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Romir Tandon • Physics-Based Programming</title>
+  <meta name="description" content="I build fast simulations and minimalist interfaces—grounded in physics, tuned for performance." />
+  <link rel="stylesheet" href="styles.css" />
+  https://fonts.googleapis.com
+  https://fonts.gstatic.com
+  https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@700&display=swap
+</head>
+<body id="top">
 
-<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
-<style>:root{
-    --bg: #0a0a0a;
-    --bg-2: #0f0f10;
-    --text: #f5f5f5;
-    --muted: #bdbdbd;
-    --card: #0d0d0dcc;
-    --border: #1a1a1a;
-    --shadow: rgba(0,0,0,0.5);
-    --radius: 14px;
-    --accent: #ffffff;
-  }
-  
-  *{box-sizing:border-box}
-  html, body {margin:0; padding:0; height:100%}
-  html {scroll-behavior:smooth}
-  body {
-    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: var(--text);
-    background: var(--bg);
-    min-height: 100%;
-    overflow-x: hidden;
-  }
-  
-  /* ambient starfield canvas sits behind content */
-  #starfield{position:fixed; inset:0; z-index:-2; background:linear-gradient(#070708, #0b0b0c)}
-  
-  /* Scroll progress bar */
-  #scroll-progress{
-    position:fixed; top:0; left:0; height:2px; width:0;
-    background: linear-gradient(90deg, #fff, #ddd);
-    z-index:9999; transition: width .1s linear;
-  }
-  
-  .container{max-width:1100px; margin:0 auto; padding: 0 20px}
-  .site-header{
-    position:sticky; top:0; z-index:1000;
-    backdrop-filter: blur(10px);
-    background: linear-gradient(180deg, rgba(10,10,10,.8), rgba(10,10,10,.5));
-    border-bottom:1px solid var(--border);
-  }
-  .nav{
-    display:flex; align-items:center; justify-content:space-between; height:64px;
-  }
-  .logo{display:flex; align-items:center; gap:.6rem; color:var(--text); text-decoration:none; font-weight:700; letter-spacing:.2px}
-  .logo-mark{
-    font-family: "JetBrains Mono", monospace; font-weight:700;
-    padding:.2rem .45rem; border:1px solid var(--border); border-radius:10px;
-  }
-  .nav-links{display:flex; gap:1rem; list-style:none; margin:0; padding:0}
-  .nav-links a{
-    color:var(--muted); text-decoration:none; padding:.4rem .6rem; border-radius:8px; position:relative
-  }
-  .nav-links a::after{
-    content:""; position:absolute; left:.6rem; right:.6rem; bottom:3px; height:1px; background:#fff;
-    transform:scaleX(0); transform-origin:right; transition:transform .25s ease;
-  }
-  .nav-links a:hover{color:var(--text)}
-  .nav-links a:hover::after{transform:scaleX(1); transform-origin:left}
-  
-  .hero{
-    display:grid; grid-template-columns:1.2fr .8fr; gap:3rem; padding: 6rem 0 3rem;
-    align-items:center;
-  }
-  .hero .headshot{
-    width: 220px; height:220px; border-radius:50%; object-fit:cover;
-    border:1px solid var(--border); box-shadow: 0 20px 50px var(--shadow);
-  }
-  .hero-text h1{font-size: clamp(2.2rem, 2.5vw + 1.5rem, 3.4rem); margin:0; letter-spacing:.3px}
-  .accent{border-bottom:2px solid #861919}
-  .tagline{color:var(--muted); font-size:1.1rem; margin:.8rem 0 1.6rem}
-  .cta{display:flex; gap:.8rem; flex-wrap:wrap}
-  .btn{
-    display:inline-block; padding:.6rem 1rem; border-radius:12px; text-decoration:none;
-    border:1px solid var(--border); color:var(--text); background:transparent;
-    transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
-  }
-  .btn:hover{transform: translateY(-2px); box-shadow: 0 12px 30px var(--shadow)}
-  .btn.primary{background: #ffffff; color:#0a0a0a; border-color:#ffffff}
-  
-  .section{padding: 3.5rem 0}
-  .section-title{font-size:1.8rem; margin:0 0 1.2rem; letter-spacing:.2px}
-  .chip-list{display:flex; flex-wrap:wrap; gap:.6rem; padding:0; list-style:none}
-  .chip{padding:.45rem .7rem; border-radius:999px; border:1px solid var(--border); background: #101010}
-  
-  .projects-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.2rem}
-  .card{
-    background: var(--card); border:1px solid var(--border); border-radius: var(--radius);
-    overflow:hidden; box-shadow: 0 20px 50px var(--shadow);
-    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, border-color .3s;
-    will-change: transform;
-  }
-  .card:hover{transform: translateY(-6px); box-shadow: 0 30px 70px var(--shadow); border-color:#2a2a2a}
-  .card .media{aspect-ratio: 16 / 9; background:#000; overflow:hidden}
-  .card video{width:100%; height:100%; object-fit:cover; display:block; filter: grayscale(100%) contrast(1.05) brightness(.95)}
-  .card .content{padding:1rem}
-  .card .content h3{margin:.3rem 0 .6rem}
-  .card .content p{color:var(--muted)}
-  .tags{display:flex; gap:.4rem; flex-wrap:wrap; margin:.6rem 0}
-  .tags span{font-size:.8rem; padding:.25rem .5rem; border:1px solid var(--border); border-radius:999px}
-  .links{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.6rem}
-  .btn.small{padding:.4rem .6rem; border-radius:10px; font-size:.9rem}
-  
-  .timeline{display:grid; gap:1rem; border-left:1px dashed var(--border); padding-left:1rem}
-  .timeline-item{position:relative}
-  .timeline-item::before{
-    content:""; position:absolute; left:-1.43rem; top:.35rem; width:9px; height:9px; border-radius:50%;
-    border:1px solid #fff;
-  }
-  
-  .list{list-style: none; padding:0; margin:0}
-  .list li{margin:.5rem 0}
-  .list strong{color:#fff}
-  
-  .socials{display:flex; gap:1rem; list-style:none; padding:0; margin:.6rem 0 0}
-  .socials a{color:#fff; text-decoration:none; border-bottom:1px solid transparent}
-  .socials a:hover{border-bottom-color:#fff}
-  
-  .site-footer{
-    border-top:1px solid var(--border); padding: 1rem 0; color: var(--muted);
-    background: linear-gradient(0deg, rgba(0,0,0,.15), transparent);
-  }
-  .site-footer .container{display:flex; justify-content:space-between; align-items:center}
-  .back-to-top{
-    border:1px solid var(--border); border-radius:10px; padding:.2rem .5rem; color:#ddd; text-decoration:none;
-  }
-  
-  .reveal{opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease}
-  .reveal.in{opacity:1; transform:none}
-  
-  @media (max-width:900px){
-    .hero{grid-template-columns:1fr; text-align:center}
-    .hero-media{display:flex; justify-content:center; position:relative}
-    .nav-links{display:none}
-  }
-  
-  @media (prefers-reduced-motion: reduce){
-    *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
-  }
-  </style></head>
-<body>
-<!-- Scroll progress bar -->
-<div id="scroll-progress"></div>
-<!-- Ambient starfield (canvas) -->
-<canvas aria-hidden="true" id="starfield"></canvas>
-<header class="site-header">
-<nav aria-label="Primary" class="nav container">
-<a aria-label="Home" class="logo" href="#top">
-<span class="logo-mark">RT</span>
-<span class="logo-type">Romir Tandon</span>
-</a>
-<ul class="nav-links">
-<li><a href="#projects">Projects</a></li>
-<li><a href="#experience">Experience</a></li>
-<li><a href="#education">Education</a></li>
-<li><a href="#awards">Awards</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-<!-- Monochrome site—no theme toggle needed -->
-</nav>
-</header>
-<!-- Hero -->
-<section class="hero container" id="top">
-<div class="hero-text reveal">
-<h1>Physics‑Based <span class="accent">Programming</span></h1>
-<p class="tagline">I build fast simulations and minimalist interfaces—grounded in physics, tuned for performance.</p>
-<div class="cta">
-<a class="btn primary" href="#projects">View Projects</a>
-<a class="btn" href="assets/Romir_Tandon_Resume.pdf" rel="noreferrer" target="_blank">Résumé</a>
-        https://github.com/romirtandon
+  <!-- Scroll progress bar -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Ambient starfield behind all content -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="logo" href="#top">
+          <span class="logo-mark">RT</span>
+          <span>Romir Tandon</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#awards">Awards</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero container section reveal">
+      <div class="hero-text">
+        <h1>Physics‑Based Programming</h1>
+        <p class="tagline">I build fast simulations and minimalist interfaces—grounded in physics, tuned for performance.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn" href="assets/Romir_Tandon_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+          https://github.com/romirtandon
+        </div>
+        <h3 class="section-title" style="margin-top:1.5rem">Skills</h3>
+        <ul class="chip-list">
+          <li class="chip">Physics</li>
+          <li class="chip">C++</li>
+          <li class="chip">Java</li>
+          <li class="chip">Python</li>
+          <li class="chip">Full‑stack</li>
+          <li class="chip">Algorithms</li>
+        </ul>
       </div>
-</div>
-<div class="hero-media reveal">
-<img alt="Headshot of Romir Tandon" class="headshot" src="assets/img/headshot.jpg"/>
-</div>
-</section>
-<!-- Skills -->
-<section class="section container" id="skills">
-<h2 class="section-title reveal">Skills</h2>
-<ul aria-label="Skills" class="chip-list reveal">
-<li class="chip">Physics</li>
-<li class="chip">C++</li>
-<li class="chip">Java</li>
-<li class="chip">Python</li>
-<li class="chip">Full‑stack</li>
-<li class="chip">Algorithms</li>
-</ul>
-</section>
-<!-- Projects -->
-<section class="section container" id="projects">
-<h2 class="section-title reveal">Featured Projects</h2>
-<div class="projects-grid">
-<!-- Project 1 -->
-<article class="card reveal" data-tilt="">
-<div class="media">
-<video autoplay="" class="gif-video" loop="" muted="" playsinline="" poster="assets/img/NBodyImage.png" preload="metadata">
-<source src="assets/video/NBodyTest.mp4" type="video/mp4"/>
-</video>
-</div>
-<div class="content">
-<h3>N‑Body Simulation</h3>
-<p>Interactive gravitational simulation utilizing the Barnes–Hut algorithms for acceleration calculation.  
-            1 million+ particles at 144 FPS. 
-            Focused on correctness, stability, and throughput.</p>
-<div class="tags"><span>Java</span><span>Barnes–Hut</span><span>Parallel</span></div>
-<div class="links">
-            https://github.com/BottleOfBeans/Nbody_Simulation
-            <a class="btn small" download="" href="assets/jar/Nbody_Simulation.jar">Download JAR</a>
-</div>
-</div>
-</article>
-<!-- Project 2 -->
-<article class="card reveal" data-tilt="">
-<div class="media">
-<video autoplay="" class="gif-video" loop="" muted="" playsinline="" poster="assets/img/FluidSimulator.png" preload="metadata">
-<source src="assets/video/FluidSim.mp4" type="video/mp4"/>
-</video>
-</div>
-<div class="content">
-<h3>Eulerian CFD</h3>
-<p>Grid‑based fluid simulation exploring advection, diffusion, and pressure projection. Emphasis on clarity and performance.</p>
-<div class="tags"><span>Java</span><span>CFD</span><span>Numerics</span></div>
-<div class="links">
-            https://github.com/BottleOfBeans/FluidSimulation
-            <a class="btn small" download="" href="assets/jar/FluidSimulation.jar">Download JAR</a>
-</div>
-</div>
-</article>
-<!-- Project 3 -->
-<article class="card reveal" data-tilt="">
-<div class="media">
-<video autoplay="" class="gif-video" loop="" muted="" playsinline="" poster="assets/img/3DRender.png" preload="metadata">
-<source src="assets/video/3DRender.mp4" type="video/mp4"/>
-</video>
-</div>
-<div class="content">
-<h3>3D Engine</h3>
-<p>An interactable 3D rendering engine created with a 2D workspace. Utilized Ratracing for optimal efficency and rendering results.</p>
-<div class="tags"><span>Java</span><span>Physics</span><span>Visualization</span></div>
-<div class="links">
-            https://github.com/BottleOfBeans/RayCasting
-            <a class="btn small" download="" href="assets/jar/RayCasting.jar">Download JAR</a>
-</div>
-</div>
-</article>
-</div>
-</section>
-<!-- Experience -->
-<section class="section container" id="experience">
-<h2 class="section-title reveal">Experience</h2>
-<div class="timeline">
-<div class="timeline-item reveal">
-<span class="when">4 yrs</span>
-<h3>President — SHS CS Club</h3>
-<p>Led events, mentoring, and competitions; grew community and built project pipelines.</p>
-</div>
-<div class="timeline-item reveal">
-<span class="when">1 yr</span>
-<h3>Engineering Intern — STEMPowered</h3>
-<p>Hands‑on engineering and software work across research and product experiments.</p>
-</div>
-<div class="timeline-item reveal">
-<span class="when">—</span>
-<h3>Team Lead — M3 International Math Modelling Competition</h3>
-<p>Coordinated modelling strategy and analysis; contributed to award‑recognized submission.</p>
-</div>
-<div class="timeline-item reveal">
-<span class="when">—</span>
-<h3>Full‑stack Developer — NJ Chemistry Olympics</h3>
-<p>Built event tooling and data flows to support competition operations.</p>
-</div>
-<div class="timeline-item reveal">
-<span class="when">3 yrs</span>
-<h3>Treasurer — SHS Physics Club</h3>
-<p>Budgeting, sponsorships, and logistics for labs, talks, and outreach.</p>
-</div>
-</div>
-</section>
-<!-- Education -->
-<section class="section container" id="education">
-<h2 class="section-title reveal">Education</h2>
-<div class="timeline">
-<div class="timeline-item reveal">
-<span class="when">2025–Present</span>
-<h3>University of Waterloo — Mechanical Engineering</h3>
-</div>
-<div class="timeline-item reveal">
-<span class="when">2021–2025</span>
-<h3>Summit High School</h3>
-</div>
-</div>
-</section>
-<!-- Awards -->
-<section class="section container" id="awards">
-<h2 class="section-title reveal">Awards</h2>
-<ul class="list reveal">
-<li>M3 International Math Modelling — <strong>Honorable Mention (2025)</strong></li>
-<li>NJ Chemistry Olympics — <strong>3rd Place (2025)</strong></li>
-<li>Stevens Trading Day — <strong>Special Invite Top 20 (2024)</strong></li>
-<li>Chatham Hackathon — <strong>2nd Place</strong></li>
-<li>JPS Hackathon — <strong>3rd Place (International)</strong></li>
-<li>Summit Hackathon — <strong>1st Place (International)</strong></li>
-</ul>
-</section>
-<!-- Contact -->
-<section class="section container" id="contact">
-<h2 class="section-title reveal">Contact</h2>
-<p class="reveal">Actively looking for work (EST, US/Canada). Reach me at
-      <a href="mailto:romir.tandon@gmail.com">romir.tandon@gmail.com</a> or find me here:
-    </p>
-<ul class="socials reveal">
-<li>https://github.com/romirtandon</li>
-<li>https://www.linkedin.com/in/romir-tandon-9b0b75299</li>
-<li>https://instagram.com/romirtandon</li>
-</ul>
-</section>
-<footer class="site-footer">
-<div class="container">
-<span>© <span id="year"></span> Romir Tandon</span>
-<a aria-label="Back to top" class="back-to-top" href="#top">↑</a>
-</div>
-</footer>
+      <div class="hero-media">
+        <!-- Replace src with your actual image path -->
+        <img class="headshot" src="assets/images/headshot.jpg" alt="Headshot of Romir Tandon"
+             onerror="this.style.display='none'">
+      </div>
+    </section>
 
-<script>// Year
-document.getElementById('year').textContent = new Date().getFullYear();
+    <!-- Projects -->
+    <section id="projects" class="section container reveal">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+        <!-- N-Body -->
+        <article class="card" data-tilt>
+          <div class="media">
+            <!-- Replace with your mp4/gif; video auto-plays like a GIF -->
+            <video class="gif-video" muted loop playsinline preload="metadata" src="assets/media/nbody.mp4"></video>
+          </div>
+          <div class="content">
+            <h3>N‑Body Simulation</h3>
+            <p>Interactive gravitational simulation utilizing Barnes–Hut for acceleration. 1M+ particles at high FPS.
+               Focused on correctness, stability, and throughput.</p>
+            <div class="tags">
+              <span>Java</span><span>Barnes–Hut</span><span>Parallel</span>
+            </div>
+            <div class="links">
+              https://github.com/BottleOfBeans/Nbody_Simulation
+              <a class="btn small" href="assets/jar/Nbody_Simulation.jar">Download JAR</a>
+            </div>
+          </div>
+        </article>
 
-// Scroll progress bar
-const progress = document.getElementById('scroll-progress');
-function updateProgress(){
-  const h = document.documentElement;
-  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
-  progress.style.width = `${Math.min(100, scrolled * 100)}%`;
-}
-document.addEventListener('scroll', updateProgress, {passive:true});
-updateProgress();
+        <!-- Eulerian CFD -->
+        <article class="card" data-tilt>
+          <div class="media">
+            <video class="gif-video" muted loop playsinline preload="metadata" src="assets/media/cfd.mp4"></video>
+          </div>
+          <div class="content">
+            <h3>Eulerian CFD</h3>
+            <p>Grid‑based fluid simulation exploring advection, diffusion, and pressure projection. Emphasis on clarity and performance.</p>
+            <div class="tags">
+              <span>Java</span><span>CFD</span><span>Numerics</span>
+            </div>
+            <div class="links">
+              https://github.com/BottleOfBeans/FluidSimulation
+              <a class="btn small" href="assets/jar/FluidSimulation.jar">Download JAR</a>
+            </div>
+          </div>
+        </article>
 
-// Reveal on scroll
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.15 });
-revealEls.forEach(el => io.observe(el));
+        <!-- 3D Engine -->
+        <article class="card" data-tilt>
+          <div class="media">
+            <video class="gif-video" muted loop playsinline preload="metadata" src="assets/media/raycasting.mp4"></video>
+          </div>
+          <div class="content">
+            <h3>3D Engine</h3>
+            <p>An interactable 3D rendering engine created with a 2D workspace. Utilized ray‑tracing for efficient rendering results.</p>
+            <div class="tags">
+              <span>Java</span><span>Physics</span><span>Visualization</span>
+            </div>
+            <div class="links">
+              https://github.com/BottleOfBeans/RayCasting
+              <a class="btn small" href="assets/jar/RayCasting.jar">Download JAR</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-// Tilt effect on hover (lightweight)
-document.querySelectorAll('[data-tilt]').forEach(card => {
-  let rAF = null;
-  function onMove(e){
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    const rx = (0.5 - y) * 4;
-    const ry = (x - 0.5) * 6;
-    if (!rAF){
-      rAF = requestAnimationFrame(() => {
-        card.style.transform = `translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-        rAF = null;
-      });
-    }
-  }
-  function reset(){ card.style.transform = ''; }
-  card.addEventListener('mousemove', onMove, {passive:true});
-  card.addEventListener('mouseleave', reset);
-});
+    <!-- Experience -->
+    <section id="experience" class="section container reveal">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>President — SHS CS Club</strong> · 4 yrs<br />
+          <span>Led events, mentoring, and competitions; grew community and built project pipelines.</span>
+        </div>
+        <div class="timeline-item">
+          <strong>Engineering Intern — STEMPowered</strong> · 1 yr<br />
+          <span>Hands‑on engineering and software work across research and product experiments.</span>
+        </div>
+        <div class="timeline-item">
+          <strong>Team Lead — M3 International Math Modelling Competition</strong><br />
+          <span>Coordinated modelling strategy and analysis; contributed to award‑recognized submission.</span>
+        </div>
+        <div class="timeline-item">
+          <strong>Full‑stack Developer — NJ Chemistry Olympics</strong><br />
+          <span>Built event tooling and data flows to support competition operations.</span>
+        </div>
+        <div class="timeline-item">
+          <strong>Treasurer — SHS Physics Club</strong> · 3 yrs<br />
+          <span>Budgeting, sponsorships, and logistics for labs, talks, and outreach.</span>
+        </div>
+      </div>
+    </section>
 
-// MP4s behave like GIFs: autoplay, loop, muted, inline; pause when out of view
-const videos = Array.from(document.querySelectorAll('.gif-video'));
-const vio = new IntersectionObserver((entries) => {
-  entries.forEach(({isIntersecting, target}) => {
-    if (isIntersecting) target.play().catch(()=>{});
-    else target.pause();
-  });
-}, { threshold: 0.4 });
-videos.forEach(v => vio.observe(v));
+    <!-- Education -->
+    <section id="education" class="section container reveal">
+      <h2 class="section-title">Education</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>University of Waterloo — Mechanical Engineering</strong> · 2025–Present
+        </div>
+        <div class="timeline-item">
+          <strong>Summit High School</strong> · 2021–2025
+        </div>
+      </div>
+    </section>
 
-// Minimal starfield (monochrome, low cost)
-(function starfield(){
-  const c = document.getElementById('starfield');
-  const ctx = c.getContext('2d', { alpha: false });
-  function resize(){ c.width = innerWidth; c.height = innerHeight; }
-  addEventListener('resize', resize); resize();
+    <!-- Awards -->
+    <section id="awards" class="section container reveal">
+      <h2 class="section-title">Awards</h2>
+      <ul class="list">
+        <li><strong>M3 International Math Modelling</strong> — Honorable Mention (2025)</li>
+        <li><strong>NJ Chemistry Olympics</strong> — 3rd Place (2025)</li>
+        <li><strong>Stevens Trading Day</strong> — Special Invite Top 20 (2024)</li>
+        <li><strong>Chatham Hackathon</strong> — 2nd Place</li>
+        <li><strong>JPS Hackathon</strong> — 3rd Place (International)</li>
+        <li><strong>Summit Hackathon</strong> — 1st Place (International)</li>
+      </ul>
+    </section>
 
-  const N = Math.min(300, Math.floor((innerWidth*innerHeight)/9000));
-  const stars = new Array(N).fill(0).map(()=>({
-    x: Math.random()*c.width,
-    y: Math.random()*c.height,
-    z: Math.random()*0.5 + 0.5, // depth (size/intensity)
-    s: Math.random()*0.9 + 0.1   // speed factor
-  }));
+    <!-- Contact -->
+    <section id="contact" class="section container reveal">
+      <h2 class="section-title">Contact</h2>
+      <p>Actively looking for work (EST, US/Canada). Reach me at
+        <a href="mailto:romir.tandon@gmail.com">romir.tandon@gmail.com</a> or find me here:</p>
+      <ul class="socials">
+        <li>https://github.com/romirtandon</li>
+        <li>https://www.linkedin.com/in/romir-tandon-9b0b75299</li>
+        <li>https://instagram.com/romirtandon</li>
+      </ul>
+    </section>
+  </main>
 
-  function frame(){
-    ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0,0,c.width,c.height);
-    ctx.fillStyle = '#fff';
-    for(const st of stars){
-      const size = st.z * 1.2;
-      ctx.globalAlpha = 0.35 + st.z*0.5;
-      ctx.fillRect(st.x, st.y, size, size);
-      // subtle drift
-      st.x += st.s * 0.05; st.y += st.s * 0.02;
-      if (st.x > c.width) st.x = 0;
-      if (st.y > c.height) st.y = 0;
-    }
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(frame);
-  }
-  frame();
-})();
-</script></body>
+  <footer class="site-footer">
+    <div class="container">
+      <div>© <span id="year"></span> Romir Tandon</div>
+      <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
 </html>
