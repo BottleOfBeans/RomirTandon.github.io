@@ -1,204 +1,217 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Romir Tandon • Physics-Based Programming</title>
-  <meta name="description" content="I build fast simulations and minimalist interfaces—grounded in physics, tuned for performance." />
-  <link rel="stylesheet" href="styles.css" />
-  https://fonts.googleapis.com
-  https://fonts.gstatic.com
-  https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@700&display=swap
+  <meta name="color-scheme" content="dark" />
+  <title>Romir Tandon • Physics Based Programming</title>
+  <meta name="description" content="Romir Tandon — physics-based programming, simulations, and full‑stack engineering." />
+  <meta name="author" content="Romir Tandon" />
+
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
-<body id="top">
 
+<body>
   <!-- Scroll progress bar -->
-  <div id="scroll-progress" aria-hidden="true"></div>
+  <div id="scroll-progress"></div>
 
-  <!-- Ambient starfield behind all content -->
+  <!-- Ambient starfield (canvas) -->
   <canvas id="starfield" aria-hidden="true"></canvas>
 
   <header class="site-header">
-    <div class="container">
-      <nav class="nav" aria-label="Primary">
-        <a class="logo" href="#top">
-          <span class="logo-mark">RT</span>
-          <span>Romir Tandon</span>
-        </a>
-        <ul class="nav-links">
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#awards">Awards</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+    <nav class="nav container" aria-label="Primary">
+      <a class="logo" href="#top" aria-label="Home">
+        <span class="logo-mark">RT</span>
+        <span class="logo-type">Romir Tandon</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#awards">Awards</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <!-- Monochrome site—no theme toggle needed -->
+    </nav>
   </header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero container section reveal">
-      <div class="hero-text">
-        <h1>Physics‑Based Programming</h1>
-        <p class="tagline">I build fast simulations and minimalist interfaces—grounded in physics, tuned for performance.</p>
-        <div class="cta">
-          <a class="btn primary" href="#projects">View Projects</a>
-          <a class="btn" href="assets/Romir_Tandon_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-          https://github.com/romirtandon
-        </div>
-        <h3 class="section-title" style="margin-top:1.5rem">Skills</h3>
-        <ul class="chip-list">
-          <li class="chip">Physics</li>
-          <li class="chip">C++</li>
-          <li class="chip">Java</li>
-          <li class="chip">Python</li>
-          <li class="chip">Full‑stack</li>
-          <li class="chip">Algorithms</li>
-        </ul>
+  <!-- Hero -->
+  <section id="top" class="hero container">
+    <div class="hero-text reveal">
+      <h1>Physics‑Based <span class="accent">Programming</span></h1>
+      <p class="tagline">I build fast simulations and minimalist interfaces—grounded in physics, tuned for performance.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">View Projects</a>
+        <a class="btn" href="assets/Romir_Tandon_Resume.pdf" target="_blank" rel="noreferrer">Résumé</a>
+        https://github.com/romirtandon
       </div>
-      <div class="hero-media">
-        <!-- Replace src with your actual image path -->
-        <img class="headshot" src="assets/images/headshot.jpg" alt="Headshot of Romir Tandon"
-             onerror="this.style.display='none'">
+    </div>
+    <div class="hero-media reveal">
+      <img src="assets/img/headshot.jpg" alt="Headshot of Romir Tandon" class="headshot" />
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section container">
+    <h2 class="section-title reveal">Skills</h2>
+    <ul class="chip-list reveal" aria-label="Skills">
+      <li class="chip">Physics</li>
+      <li class="chip">C++</li>
+      <li class="chip">Java</li>
+      <li class="chip">Python</li>
+      <li class="chip">Full‑stack</li>
+      <li class="chip">Algorithms</li>
+    </ul>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section container">
+    <h2 class="section-title reveal">Featured Projects</h2>
+
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <article class="card reveal" data-tilt>
+        <div class="media">
+          <video class="gif-video" preload="metadata" autoplay loop muted playsinline
+                 poster="assets/img/NBodyImage.png">
+            <source src="assets/video/NBodyTest.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="content">
+          <h3>N‑Body Simulation</h3>
+          <p>Interactive gravitational simulation utilizing the Barnes–Hut algorithms for acceleration calculation.  
+            1 million+ particles at 144 FPS. 
+            Focused on correctness, stability, and throughput.</p>
+          <div class="tags"><span>Java</span><span>Barnes–Hut</span><span>Parallel</span></div>
+          <div class="links">
+            https://github.com/BottleOfBeans/Nbody_Simulation
+            <a class="btn small" href="assets/jar/Nbody_Simulation.jar" download>Download JAR</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="card reveal" data-tilt>
+        <div class="media">
+          <video class="gif-video" preload="metadata" autoplay loop muted playsinline
+                 poster="assets/img/FluidSimulator.png">
+            <source src="assets/video/FluidSim.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="content">
+          <h3>Eulerian CFD</h3>
+          <p>Grid‑based fluid simulation exploring advection, diffusion, and pressure projection. Emphasis on clarity and performance.</p>
+          <div class="tags"><span>Java</span><span>CFD</span><span>Numerics</span></div>
+          <div class="links">
+            https://github.com/BottleOfBeans/FluidSimulation
+            <a class="btn small" href="assets/jar/FluidSimulation.jar" download>Download JAR</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="card reveal" data-tilt>
+        <div class="media">
+          <video class="gif-video" preload="metadata" autoplay loop muted playsinline
+                 poster="assets/img/3DRender.png">
+            <source src="assets/video/3DRender.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="content">
+          <h3>3D Engine</h3>
+          <p>An interactable 3D rendering engine created with a 2D workspace. Utilized Ratracing for optimal efficency and rendering results.</p>
+          <div class="tags"><span>Java</span><span>Physics</span><span>Visualization</span></div>
+          <div class="links">
+            https://github.com/BottleOfBeans/RayCasting
+            <a class="btn small" href="assets/jar/RayCasting.jar" download>Download JAR</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section container">
+    <h2 class="section-title reveal">Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <span class="when">4 yrs</span>
+        <h3>President — SHS CS Club</h3>
+        <p>Led events, mentoring, and competitions; grew community and built project pipelines.</p>
       </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="section container reveal">
-      <h2 class="section-title">Featured Projects</h2>
-      <div class="projects-grid">
-        <!-- N-Body -->
-        <article class="card" data-tilt>
-          <div class="media">
-            <!-- Replace with your mp4/gif; video auto-plays like a GIF -->
-            <video class="gif-video" muted loop playsinline preload="metadata" src="assets/media/nbody.mp4"></video>
-          </div>
-          <div class="content">
-            <h3>N‑Body Simulation</h3>
-            <p>Interactive gravitational simulation utilizing Barnes–Hut for acceleration. 1M+ particles at high FPS.
-               Focused on correctness, stability, and throughput.</p>
-            <div class="tags">
-              <span>Java</span><span>Barnes–Hut</span><span>Parallel</span>
-            </div>
-            <div class="links">
-              https://github.com/BottleOfBeans/Nbody_Simulation
-              <a class="btn small" href="assets/jar/Nbody_Simulation.jar">Download JAR</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Eulerian CFD -->
-        <article class="card" data-tilt>
-          <div class="media">
-            <video class="gif-video" muted loop playsinline preload="metadata" src="assets/media/cfd.mp4"></video>
-          </div>
-          <div class="content">
-            <h3>Eulerian CFD</h3>
-            <p>Grid‑based fluid simulation exploring advection, diffusion, and pressure projection. Emphasis on clarity and performance.</p>
-            <div class="tags">
-              <span>Java</span><span>CFD</span><span>Numerics</span>
-            </div>
-            <div class="links">
-              https://github.com/BottleOfBeans/FluidSimulation
-              <a class="btn small" href="assets/jar/FluidSimulation.jar">Download JAR</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3D Engine -->
-        <article class="card" data-tilt>
-          <div class="media">
-            <video class="gif-video" muted loop playsinline preload="metadata" src="assets/media/raycasting.mp4"></video>
-          </div>
-          <div class="content">
-            <h3>3D Engine</h3>
-            <p>An interactable 3D rendering engine created with a 2D workspace. Utilized ray‑tracing for efficient rendering results.</p>
-            <div class="tags">
-              <span>Java</span><span>Physics</span><span>Visualization</span>
-            </div>
-            <div class="links">
-              https://github.com/BottleOfBeans/RayCasting
-              <a class="btn small" href="assets/jar/RayCasting.jar">Download JAR</a>
-            </div>
-          </div>
-        </article>
+      <div class="timeline-item reveal">
+        <span class="when">1 yr</span>
+        <h3>Engineering Intern — STEMPowered</h3>
+        <p>Hands‑on engineering and software work across research and product experiments.</p>
       </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" class="section container reveal">
-      <h2 class="section-title">Experience</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <strong>President — SHS CS Club</strong> · 4 yrs<br />
-          <span>Led events, mentoring, and competitions; grew community and built project pipelines.</span>
-        </div>
-        <div class="timeline-item">
-          <strong>Engineering Intern — STEMPowered</strong> · 1 yr<br />
-          <span>Hands‑on engineering and software work across research and product experiments.</span>
-        </div>
-        <div class="timeline-item">
-          <strong>Team Lead — M3 International Math Modelling Competition</strong><br />
-          <span>Coordinated modelling strategy and analysis; contributed to award‑recognized submission.</span>
-        </div>
-        <div class="timeline-item">
-          <strong>Full‑stack Developer — NJ Chemistry Olympics</strong><br />
-          <span>Built event tooling and data flows to support competition operations.</span>
-        </div>
-        <div class="timeline-item">
-          <strong>Treasurer — SHS Physics Club</strong> · 3 yrs<br />
-          <span>Budgeting, sponsorships, and logistics for labs, talks, and outreach.</span>
-        </div>
+      <div class="timeline-item reveal">
+        <span class="when">—</span>
+        <h3>Team Lead — M3 International Math Modelling Competition</h3>
+        <p>Coordinated modelling strategy and analysis; contributed to award‑recognized submission.</p>
       </div>
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="section container reveal">
-      <h2 class="section-title">Education</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <strong>University of Waterloo — Mechanical Engineering</strong> · 2025–Present
-        </div>
-        <div class="timeline-item">
-          <strong>Summit High School</strong> · 2021–2025
-        </div>
+      <div class="timeline-item reveal">
+        <span class="when">—</span>
+        <h3>Full‑stack Developer — NJ Chemistry Olympics</h3>
+        <p>Built event tooling and data flows to support competition operations.</p>
       </div>
-    </section>
+      <div class="timeline-item reveal">
+        <span class="when">3 yrs</span>
+        <h3>Treasurer — SHS Physics Club</h3>
+        <p>Budgeting, sponsorships, and logistics for labs, talks, and outreach.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Awards -->
-    <section id="awards" class="section container reveal">
-      <h2 class="section-title">Awards</h2>
-      <ul class="list">
-        <li><strong>M3 International Math Modelling</strong> — Honorable Mention (2025)</li>
-        <li><strong>NJ Chemistry Olympics</strong> — 3rd Place (2025)</li>
-        <li><strong>Stevens Trading Day</strong> — Special Invite Top 20 (2024)</li>
-        <li><strong>Chatham Hackathon</strong> — 2nd Place</li>
-        <li><strong>JPS Hackathon</strong> — 3rd Place (International)</li>
-        <li><strong>Summit Hackathon</strong> — 1st Place (International)</li>
-      </ul>
-    </section>
+  <!-- Education -->
+  <section id="education" class="section container">
+    <h2 class="section-title reveal">Education</h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <span class="when">2025–Present</span>
+        <h3>University of Waterloo — Mechanical Engineering</h3>
+      </div>
+      <div class="timeline-item reveal">
+        <span class="when">2021–2025</span>
+        <h3>Summit High School</h3>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact -->
-    <section id="contact" class="section container reveal">
-      <h2 class="section-title">Contact</h2>
-      <p>Actively looking for work (EST, US/Canada). Reach me at
-        <a href="mailto:romir.tandon@gmail.com">romir.tandon@gmail.com</a> or find me here:</p>
-      <ul class="socials">
-        <li>https://github.com/romirtandon</li>
-        <li>https://www.linkedin.com/in/romir-tandon-9b0b75299</li>
-        <li>https://instagram.com/romirtandon</li>
-      </ul>
-    </section>
-  </main>
+  <!-- Awards -->
+  <section id="awards" class="section container">
+    <h2 class="section-title reveal">Awards</h2>
+    <ul class="list reveal">
+      <li>M3 International Math Modelling — <strong>Honorable Mention (2025)</strong></li>
+      <li>NJ Chemistry Olympics — <strong>3rd Place (2025)</strong></li>
+      <li>Stevens Trading Day — <strong>Special Invite Top 20 (2024)</strong></li>
+      <li>Chatham Hackathon — <strong>2nd Place</strong></li>
+      <li>JPS Hackathon — <strong>3rd Place (International)</strong></li>
+      <li>Summit Hackathon — <strong>1st Place (International)</strong></li>
+    </ul>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section container">
+    <h2 class="section-title reveal">Contact</h2>
+    <p class="reveal">Actively looking for work (EST, US/Canada). Reach me at
+      <a href="mailto:romir.tandon@gmail.com">romir.tandon@gmail.com</a> or find me here:
+    </p>
+    <ul class="socials reveal">
+      <li>https://github.com/romirtandon</li>
+      <li>https://www.linkedin.com/in/romir-tandon-9b0b75299</li>
+      <li>https://instagram.com/romirtandon</li>
+    </ul>
+  </section>
 
   <footer class="site-footer">
     <div class="container">
-      <div>© <span id="year"></span> Romir Tandon</div>
-      <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+      <span>© <span id="year"></span> Romir Tandon</span>
+      <a href="#top" class="back-to-top" aria-label="Back to top">↑</a>
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
