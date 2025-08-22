@@ -70,14 +70,14 @@ videos.forEach(v => vio.observe(v));
 
   // -------- Base parameters (tweak to taste) --------
   const P = {
-    DENSITY: 0.00085,     // stars per CSS pixel
+    DENSITY: 0.00100,     // stars per CSS pixel
     FOV_BASE: 420,        // base focal length
-    DEPTH: 2000,          // z-range (1..DEPTH)
-    SPEED_BASE: 60,       // forward units/sec at calm
+    DEPTH: 5000,          // z-range (1..DEPTH)
+    SPEED_BASE: 1000,       // forward units/sec at calm
     SPEED_VARIANCE: 0.9,  // per-star speed variety
     SIZE_NEAR: 3.2,       // max size when near camera
     SIZE_FAR: 0.30,       // min size when far
-    STREAK_BASE: 0.85,    // baseline streakiness (0..1+)
+    STREAK_BASE: 0.55,    // baseline streakiness (0..1+)
     COLORIZE: true        // subtle blue/white hue
   };
 
@@ -161,8 +161,8 @@ videos.forEach(v => vio.observe(v));
 
   function drawFrame(dt) {
     // Ease camera towards target look
-    cam.x += (look.x - cam.x) * 0.06;
-    cam.y += (look.y - cam.y) * 0.06;
+    //cam.x += (look.x - cam.x) * 0.06;
+    //cam.y += (look.y - cam.y) * 0.06;
 
     // Warp params from scroll
     const W = warpParams(typeof warpT !== 'undefined' ? warpT : 0);
